@@ -1,28 +1,4 @@
-/*package amzalMusicUpload;
 
-import java.sql.*;
-
-import amzalDBConnect.DBconnect;
-
-public class MusicDAO {
-
-    public static boolean save(Music music) {
-        String sql = "INSERT INTO songs (title, genre, language) VALUES (?, ?, ?)";
-
-        try (Connection conn = DBconnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, music.getTitle());
-            stmt.setString(2, music.getGenre());
-            stmt.setString(3, music.getLanguage());
-
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-}*/
 
 package amzalMusicUpload;
 
@@ -201,40 +177,6 @@ public class MusicDAO implements MusicDAOInterface {
 	}
 }	
 	
-//    public static boolean save(Music music) {
-//        String sql = "INSERT INTO songs (title, genre, language) VALUES (?, ?, ?)";
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//
-//        try {
-//            conn = DBconnect.getConnection();
-//            if (conn == null) {
-//                System.err.println("Database connection failed.");
-//                return false;
-//            }
-//
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, music.getTitle());
-//            stmt.setString(2, music.getGenre());
-//            stmt.setString(3, music.getLanguage());
-//
-//            return stmt.executeUpdate() > 0;
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return false;
-//
-//        } finally {
-//        	/*
-//        	 * Finally closing connection and prepared statement objects
-//        	 */
-//            try {
-//                if (stmt != null) stmt.close();
-//                if (conn != null) conn.close(); 
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
+
 
 
