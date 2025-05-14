@@ -128,7 +128,7 @@ public class MusicDAO implements MusicDAOInterface {
     
 	@Override
     public Boolean publish(PublishedMusic pMusic) { 
-    	String sql = "UPDATE songs SET price = ?, region = ?, releaseDate = ?, albumId = ?, albumName = ? WHERE id = ?";  
+    	String sql = "UPDATE songs SET price = ?, region = ?, releaseDate = ?, published = ?, albumId = ?, albumName = ? WHERE id = ?";  
         Connection conn = null;
         PreparedStatement stmt = null;
         //ResultSet rs = null;
@@ -142,9 +142,10 @@ public class MusicDAO implements MusicDAOInterface {
             stmt.setDouble(1, pMusic.getPrice());       
             stmt.setString(2, pMusic.getRegion());        
             stmt.setTimestamp(3, currentTimestamp);
-            stmt.setInt(4, pMusic.getAlbumId());
-            stmt.setString(5, pMusic.getAlbumName());
-            stmt.setInt(6, pMusic.getId());
+            stmt.setBoolean(4, true);
+            stmt.setInt(5, pMusic.getAlbumId());
+            stmt.setString(6, pMusic.getAlbumName());
+            stmt.setInt(7, pMusic.getId());
             
             rowsAffected = stmt.executeUpdate();
 
