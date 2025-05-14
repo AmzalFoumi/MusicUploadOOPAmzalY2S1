@@ -27,19 +27,19 @@ public class MusicUploadValidateFilter extends HttpFilter {
         String errorMsg = "";
 
         // Title validation
-        if (title == null || title.length() > 255) {
-            errorMsg = "Invalid title. Must be under 255 characters.";
+        if (title == null || title.trim().isEmpty() || title.length() > 255) {
+            errorMsg = "Invalid title. Must be a string under 255 characters.";
             valid = false;
         }
 
         // Genre validation
-        else if (genre == null || genre.length() > 255) {
-            errorMsg = "Invalid genre. Must be under 255 characters.";
+        if (genre == null || genre.trim().isEmpty() || genre.length() > 255) {
+            errorMsg = "Invalid genre. Must be a string under 255 characters.";
             valid = false;
         }
 
         // Language validation
-        else if (language == null || !isValidLanguage(language)) {
+        if (language == null || language.trim().isEmpty() ||  !isValidLanguage(language)) {
             errorMsg = "Invalid language. Allowed: English, Sinhala, Tamil, Chinese.";
             valid = false;
         }
@@ -47,6 +47,7 @@ public class MusicUploadValidateFilter extends HttpFilter {
         if (!valid) {
             request.setAttribute("errorMsg", errorMsg);
             // Forward user back to the JSP with error message
+            
             request.getRequestDispatcher("/musicUploadForm.jsp").forward(request, response);
         } else {
             // Continue if all inputs are valid

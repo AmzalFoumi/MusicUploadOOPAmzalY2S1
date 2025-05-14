@@ -22,19 +22,27 @@ public class MusicPreviewControlServlet extends HttpServlet {
                 int id = Integer.parseInt(idParam); // Convert to int
 
                 // Load music from DB
-                Music music = MusicDAO.getMusicById(id);
-
+                MusicDAOInterface DAO = new MusicDAO();
+                Music music = DAO.getMusicById(id);
              
                 if (music != null) {
+                	
+                	request.setAttribute("music", music);
+                	
                 	if ("upload".equals(actionValue)) {
-                    	request.setAttribute("music", music);
+                    	
                         request.getRequestDispatcher("musicUploadPreview.jsp").forward(request, response);
                         return;
                     }
                 	
                 	else if ("publish".equals(actionValue)) {
-                		request.setAttribute("music", music);
+                		
                         request.getRequestDispatcher("musicPublishForm.jsp").forward(request, response);
+                        return;
+                	}
+                	
+                	else if ("delete".equals(actionValue)) {
+                		request.getRequestDispatcher("musicDeleteConfirm.jsp").forward(request, response);
                         return;
                 	}
                 }

@@ -27,11 +27,14 @@
             <input type="hidden" name="genre" value="<%= music.getGenre()%>">
             <input type="hidden" name="language" value="<%= music.getLanguage()%>">
 
+			<label for="albumName">Album Name (If album does'nt exit, new one will be created for you):</label><br>
+            <input type="text" id="albumName" name="albumName" ><br><br>
+
             <label for="price">Price (USD):</label><br>
-            <input type="number" id="price" name="price" required><br><br>
+            <input type="number" id="price" name="price" ><br><br>
 
             <label for="region">Release Region:</label><br>
-            <input type="text" id="region" name="region" required><br><br>
+            <input type="text" id="region" name="region" ><br><br>
 
 <!--             <label for="releaseDate">Release Date:</label><br>
             <input type="date" id="releaseDate" name="releaseDate" required><br><br> -->

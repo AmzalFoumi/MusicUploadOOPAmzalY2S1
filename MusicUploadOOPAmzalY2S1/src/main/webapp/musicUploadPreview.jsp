@@ -34,6 +34,12 @@
 	        <input type="hidden" name="actionValue" value="publish">
 	        <button type="submit">Publish Now</button>
 	    </form>
+	    
+	    <form action="musicPreview" method="get" style="display:inline;">
+	        <input type="hidden" name="musicId" value="<%= music.getId() %>">
+	        <input type="hidden" name="actionValue" value="delete">
+	        <button type="submit">Delete Music</button>
+	    </form>
 	
 	<%
 	    } else {

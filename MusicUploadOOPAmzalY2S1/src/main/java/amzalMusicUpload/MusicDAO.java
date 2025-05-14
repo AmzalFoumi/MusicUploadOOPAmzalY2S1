@@ -31,9 +31,10 @@ import java.time.*;
 
 import amzalDBConnect.DBconnect;
 
-public class MusicDAO {
+public class MusicDAO implements MusicDAOInterface {
 
-	public static int save(Music music) {
+	@Override
+	public int save(Music music) {
 	    String sql = "INSERT INTO songs (title, genre, language) VALUES (?, ?, ?)";
 	    Connection conn = null;
 	    PreparedStatement stmt = null;
@@ -82,7 +83,8 @@ public class MusicDAO {
 	
 	
 	// Retrieves a Music object by ID
-    public static Music getMusicById(int id) {
+	@Override
+    public Music getMusicById(int id) {
         String sql = "SELECT * FROM songs WHERE id = ?";
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -124,12 +126,12 @@ public class MusicDAO {
     }
 	
     
-    
-    public static Boolean publish(PublishedMusic pMusic) { 
-    	String sql = "UPDATE songs SET price = ?, region = ?, releaseDate = ? WHERE id = ?";  //Dont forget release date
+	@Override
+    public Boolean publish(PublishedMusic pMusic) { 
+    	String sql = "UPDATE songs SET price = ?, region = ?, releaseDate = ?, albumId = ?, albumName = ? WHERE id = ?";  
         Connection conn = null;
         PreparedStatement stmt = null;
-        ResultSet rs = null;
+        //ResultSet rs = null;
         int rowsAffected = 0;
         Timestamp currentTimestamp = Timestamp.valueOf(LocalDateTime.now());
         
@@ -140,7 +142,9 @@ public class MusicDAO {
             stmt.setDouble(1, pMusic.getPrice());       
             stmt.setString(2, pMusic.getRegion());        
             stmt.setTimestamp(3, currentTimestamp);
-            stmt.setInt(4, pMusic.getId());
+            stmt.setInt(4, pMusic.getAlbumId());
+            stmt.setString(5, pMusic.getAlbumName());
+            stmt.setInt(6, pMusic.getId());
             
             rowsAffected = stmt.executeUpdate();
 
@@ -150,7 +154,7 @@ public class MusicDAO {
         } finally {
             // Close resources
             try {
-                if (rs != null) rs.close();
+                //if (rs != null) rs.close();
                 if (stmt != null) stmt.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
@@ -159,6 +163,41 @@ public class MusicDAO {
         } 	
         return rowsAffected > 0; //Returns true if only the sql statement runs properly
     }
+
+
+	@Override
+	public Boolean delete(int musicId) {
+		
+		String sql = "DELETE FROM songs WHERE id = ?";  
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int rowsAffected = 0;
+		
+		
+		try {
+			conn = DBconnect.getConnection();
+			
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setInt(1, musicId);
+			
+			rowsAffected = stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+		}
+		
+		return rowsAffected > 0;
+	}
 }	
 	
 //    public static boolean save(Music music) {

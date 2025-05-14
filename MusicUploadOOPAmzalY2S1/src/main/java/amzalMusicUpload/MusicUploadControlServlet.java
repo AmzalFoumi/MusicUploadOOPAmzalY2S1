@@ -21,7 +21,9 @@ public class MusicUploadControlServlet extends HttpServlet {
 	    String actionValue = request.getParameter("actionValue");
 	
 	    Music music = new Music(title, genre, language); //Constructor of music object
-	    int saveReturn = MusicDAO.save(music);
+	    
+	    MusicDAOInterface DAO = new MusicDAO();
+	    int saveReturn = DAO.save(music);
 	
 	    if (saveReturn == -1) {
 	    	request.setAttribute("errorMsg", "Failed to save music details. Please try again.");
@@ -32,18 +34,18 @@ public class MusicUploadControlServlet extends HttpServlet {
 //            request.getRequestDispatcher("test.jsp").forward(request, response);
         	response.sendRedirect("musicPreview?musicId=" + saveReturn + "&musicTitle=" + URLEncoder.encode(music.getTitle(), "UTF-8") + "&actionValue=" + actionValue);
         }
-	    
-//	    if (saveReturn != -1) {
-//
-//	    	response.sendRedirect("musicPreview?musicId=" + saveReturn);
-//        } else {
-//
-//            request.setAttribute("errorMsg", "Failed to save music details. Please try again.");
-//            request.getRequestDispatcher("musicUploadForm.jsp").forward(request, response);
-//        }
 	}
 }
 
+
+//if (saveReturn != -1) {
+//
+//	response.sendRedirect("musicPreview?musicId=" + saveReturn);
+//} else {
+//
+//    request.setAttribute("errorMsg", "Failed to save music details. Please try again.");
+//    request.getRequestDispatcher("musicUploadForm.jsp").forward(request, response);
+//}
 
 
 /*

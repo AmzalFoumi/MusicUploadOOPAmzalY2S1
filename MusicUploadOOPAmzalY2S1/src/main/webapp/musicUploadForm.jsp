@@ -22,8 +22,8 @@
         <label for="language">Language:</label><br>
         <input type="text" id="language" name="language"><br><br>
 
-        <label for="audioFile">Audio File:</label><br>
-        <input type="file" id="audioFile" name="audioFile" accept=".mp3,.wav,.aac"><br><br>
+<!--         <label for="audioFile">Audio File:</label><br>
+        <input type="file" id="audioFile" name="audioFile" accept=".mp3,.wav,.aac"><br><br> -->
         
         <input type="hidden" name="actionValue" value="upload">
 
